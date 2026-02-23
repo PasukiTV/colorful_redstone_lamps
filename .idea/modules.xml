@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/colorful_redstone_lamps.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/colorful_redstone_lamps.fabric.main.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/colorful_redstone_lamps.fabric.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fabric/colorful_redstone_lamps.fabric.test.iml" filepath="$PROJECT_DIR$/.idea/modules/fabric/colorful_redstone_lamps.fabric.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/colorful_redstone_lamps.neoforge.main.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/colorful_redstone_lamps.neoforge.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/neoforge/colorful_redstone_lamps.neoforge.test.iml" filepath="$PROJECT_DIR$/.idea/modules/neoforge/colorful_redstone_lamps.neoforge.test.iml" />
+    </modules>
+  </component>
+</project>
