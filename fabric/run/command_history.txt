@@ -1,0 +1,1 @@
+/give Player69 colorful_redstone_lamps:example_block
