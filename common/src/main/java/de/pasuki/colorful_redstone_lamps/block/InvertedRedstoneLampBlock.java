@@ -8,11 +8,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class InvertedRedstoneLampBlock extends RedstoneLampBlock {
     public static final BooleanProperty LIT = RedstoneLampBlock.LIT;
+    private static final int SHUTDOWN_DELAY_TICKS = 4;
 
     public InvertedRedstoneLampBlock(Properties props) {
         super(props);
@@ -30,28 +30,33 @@ public class InvertedRedstoneLampBlock extends RedstoneLampBlock {
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos,
                                 Block block, BlockPos fromPos, boolean isMoving) {
-        if (level.isClientSide) return;
+        if (level.isClientSide) {
+            return;
+        }
 
-        boolean lit       = state.getValue(BlockStateProperties.LIT);
+        boolean lit = state.getValue(LIT);
         boolean hasSignal = level.hasNeighborSignal(pos);
-        // Update only when current state differs from desired inverted state.
-        if (lit == hasSignal) {
-            if (lit) {
-                // if Lamp lit, turn delayed off
-                level.scheduleTick(pos, this, 4);
-            } else {
-                // if Lamp not lit, turn on
-                level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.TRUE), Block.UPDATE_CLIENTS);
-            }
+
+        // No update needed if state already matches inverted behavior.
+        if (lit != hasSignal) {
+            return;
+        }
+
+        if (lit) {
+            // If currently lit and receiving power, schedule delayed shutdown.
+            level.scheduleTick(pos, this, SHUTDOWN_DELAY_TICKS);
+        } else {
+            // If currently unlit and power was removed, turn on immediately.
+            level.setBlock(pos, state.setValue(LIT, true), Block.UPDATE_CLIENTS);
         }
     }
 
     // Called by the scheduled tick from neighborChanged for delayed inverted shutdown.
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        // Turn Lamp only off, if Lamp is on and has signal
-        if (state.getValue(BlockStateProperties.LIT) && level.hasNeighborSignal(pos)) {
-            level.setBlock(pos, state.setValue(BlockStateProperties.LIT, Boolean.FALSE), Block.UPDATE_CLIENTS);
+        // Turn off only if still powered.
+        if (state.getValue(LIT) && level.hasNeighborSignal(pos)) {
+            level.setBlock(pos, state.setValue(LIT, false), Block.UPDATE_CLIENTS);
         }
     }
 }

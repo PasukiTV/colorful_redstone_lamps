@@ -9,6 +9,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Map;
+import java.util.function.Supplier;
+
+import net.minecraft.world.level.ItemLike;
+
 public final class ModCreativeTabs {
     private ModCreativeTabs() {}
 
@@ -16,36 +21,41 @@ public final class ModCreativeTabs {
             DeferredRegister.create(ColorfulRedstoneLamps.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
     public static final RegistrySupplier<CreativeModeTab> NORMAL_LAMPS =
-            TABS.register("normal_lamps", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP,1)
-
-                    .icon(() -> new ItemStack(ModItems.LAMP_ITEMS.get(DyeColor.RED).get()))
-
-                    .title(Component.translatable("itemGroup.colorful_redstone_lamps.normal_lamps"))
-
-                    .displayItems((params,output) -> {
-                        for (DyeColor color : DyeColor.values()) {
-                            var sup = ModBlocks.LAMPS.get(color);
-                            if (sup != null) output.accept(sup.get());
-                        }
-                    })
-                    .build()
-            );
+            TABS.register("0_normal_lamps", () -> createLampTab(
+                    "itemGroup.colorful_redstone_lamps.normal_lamps",
+                    () -> new ItemStack(ModItems.LAMP_ITEMS.get(DyeColor.RED).get()),
+                    ModBlocks.LAMPS,
+                    0
+            ));
 
     public static final RegistrySupplier<CreativeModeTab> INVERTED_LAMPS =
-            TABS.register("inverted_lamps", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP,2)
+            TABS.register("1_inverted_lamps", () -> createLampTab(
+                    "itemGroup.colorful_redstone_lamps.inverted_lamps",
+                    () -> new ItemStack(ModItems.INVERTED_LAMP_ITEMS.get(DyeColor.RED).get()),
+                    ModBlocks.INVERTED_LAMPS,
+                    1
+            ));
 
-                    .icon(() -> new ItemStack(ModItems.INVERTED_LAMP_ITEMS.get(DyeColor.RED).get()))
-
-                    .title(Component.translatable("itemGroup.colorful_redstone_lamps.inverted_lamps"))
-
-                    .displayItems((params,output) -> {
-                        for (DyeColor color : DyeColor.values()) {
-                            var sup = ModBlocks.INVERTED_LAMPS.get(color);
-                            if (sup != null) output.accept(sup.get());
+    private static CreativeModeTab createLampTab(
+            String translationKey,
+            Supplier<ItemStack> icon,
+            Map<DyeColor, ? extends RegistrySupplier<? extends ItemLike>> lampMap,
+            int column
+    ) {
+        return CreativeModeTab.builder(CreativeModeTab.Row.TOP, column)
+                .icon(icon)
+                .title(Component.translatable(translationKey))
+                .displayItems((params, output) -> {
+                    for (DyeColor color : DyeColor.values()) {
+                        var sup = lampMap.get(color);
+                        if (sup != null) {
+                            output.accept(sup.get());
                         }
-                    })
-                    .build()
-            );
+                    }
+                })
+                .build();
+    }
+
     public static void register() {
         TABS.register();
     }
