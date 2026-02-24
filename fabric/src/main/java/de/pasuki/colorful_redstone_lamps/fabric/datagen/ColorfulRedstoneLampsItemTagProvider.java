@@ -1,0 +1,37 @@
+package de.pasuki.colorful_redstone_lamps.fabric.datagen;
+
+import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
+import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+
+import java.util.concurrent.CompletableFuture;
+
+public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    public static final TagKey<Item> ANY_LAMP =
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, "any_lamp"));
+    public static final TagKey<Item> LAMPS =
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, "redstone_lamps"));
+    public static final TagKey<Item> INVERTED_LAMPS =
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, "inverted_redstone_lamps"));
+
+    public ColorfulRedstoneLampsItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+        for (DyeColor color : DyeColor.values()) {
+            tag(LAMPS).add(ModBlocks.LAMPS.get(color).get().asItem().builtInRegistryHolder().key());
+            tag(INVERTED_LAMPS).add(ModBlocks.INVERTED_LAMPS.get(color).get().asItem().builtInRegistryHolder().key());
+        }
+
+        tag(ANY_LAMP).addTag(LAMPS).addTag(INVERTED_LAMPS);
+    }
+}

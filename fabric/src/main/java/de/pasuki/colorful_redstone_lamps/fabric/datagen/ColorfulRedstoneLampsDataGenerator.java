@@ -11,5 +11,8 @@ public final class ColorfulRedstoneLampsDataGenerator implements DataGeneratorEn
         pack.addProvider(ColorfulRedstoneLampsGermanLanguageProvider::new);
         pack.addProvider(ColorfulRedstoneLampsModelProvider::new);
         pack.addProvider(ColorfulRedstoneLampsLootTableProvider::new);
+        pack.addProvider(ColorfulRedstoneLampsRecipeProvider::new);
+        pack.addProvider(ColorfulRedstoneLampsItemTagProvider::new);
+        pack.addProvider(ColorfulRedstoneLampsBlockTagProvider::new);
     }
 }

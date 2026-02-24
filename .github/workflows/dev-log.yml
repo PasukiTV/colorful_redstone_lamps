@@ -1,0 +1,49 @@
+name: Discord Dev Log
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send embed to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+          BRANCH: ${{ github.ref_name }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
+          COMMIT_ID: ${{ github.sha }}
+          COMPARE_URL: ${{ github.event.compare }}
+        run: |
+          SHORT_SHA="${COMMIT_ID:0:7}"
+
+          # Clean message for JSON (escape quotes/newlines)
+          SAFE_MSG=$(printf "%s" "$COMMIT_MSG" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read())[1:-1])')
+
+          payload=$(cat <<EOF
+  {
+    "username": "GitHub Dev Log",
+    "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+    "embeds": [
+      {
+        "title": "✅ New update pushed to ${BRANCH}",
+        "url": "${COMPARE_URL}",
+        "description": "**${REPO}**\\n\\n📝 ${SAFE_MSG}",
+        "fields": [
+          { "name": "Author", "value": "${ACTOR}", "inline": true },
+          { "name": "Commit", "value": "[${SHORT_SHA}](${COMMIT_URL})", "inline": true }
+        ],
+        "footer": { "text": "Pasuki's Dev Log • GitHub" },
+        "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+      }
+    ]
+  }
+  EOF
+  )
+
+curl -sS -H "Content-Type: application/json" -X POST -d "$payload" "$DISCORD_WEBHOOK"
