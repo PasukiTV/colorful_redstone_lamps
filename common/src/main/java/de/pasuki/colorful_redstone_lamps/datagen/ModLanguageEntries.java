@@ -26,10 +26,11 @@ public final class ModLanguageEntries {
         entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Inverted Colorful Redstone Lamps");
         entries.put("tooltip.colorful_redstone_lamps.lamp.normal",   "Turns on with a redstone signal.");
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Turns off with a redstone signal.");
-        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps!");
-        entries.put("colorful_redstone_lamps.welcome.body1", "Have ideas to improve the mod?");
-        entries.put("colorful_redstone_lamps.welcome.body2", "I'd love to hear your feedback!");
-        entries.put("colorful_redstone_lamps.welcome.body3", "Leave feedback on CurseForge");
+        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps loaded.");
+        entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
+        entries.put("colorful_redstone_lamps.welcome.feedback.curseforge", "CurseForge");
+        entries.put("colorful_redstone_lamps.welcome.feedback.modrinth", "Modrinth");
+        entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
 
 
         return entries;
@@ -52,10 +53,11 @@ public final class ModLanguageEntries {
         entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Bunte Redstone-Lampen Invertiert");
         entries.put("tooltip.colorful_redstone_lamps.lamp.normal",   "Schaltet sich bei Redstone-Signal ein.");
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Schaltet sich bei Redstone-Signal aus.");
-        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps!");
-        entries.put("colorful_redstone_lamps.welcome.body1", "Hast du Ideen zur Verbesserung?");
-        entries.put("colorful_redstone_lamps.welcome.body2", "Ich freue mich über dein Feedback!");
-        entries.put("colorful_redstone_lamps.welcome.body3", "Feedback auf CurseForge");
+        entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps geladen.");
+        entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
+        entries.put("colorful_redstone_lamps.welcome.feedback.curseforge", "CurseForge");
+        entries.put("colorful_redstone_lamps.welcome.feedback.modrinth", "Modrinth");
+        entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
 
         return entries;
     }
