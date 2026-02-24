@@ -49,7 +49,7 @@ public final class ModLanguageEntries {
         }
 
         entries.put("itemGroup.colorful_redstone_lamps.normal_lamps", "Bunte Redstone-Lampen");
-        entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Invertierte bunte Redstone-Lampen");
+        entries.put("itemGroup.colorful_redstone_lamps.inverted_lamps", "Bunte Redstone-Lampen Invertiert");
         entries.put("tooltip.colorful_redstone_lamps.lamp.normal",   "Schaltet sich bei Redstone-Signal ein.");
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Schaltet sich bei Redstone-Signal aus.");
         entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps!");
@@ -80,21 +80,21 @@ public final class ModLanguageEntries {
     private static String toGermanColorDisplayName(DyeColor color) {
         return switch (color) {
             case WHITE -> "Weiße";
+            case LIGHT_GRAY -> "Hellgraue";
+            case GRAY -> "Graue";
+            case BLACK -> "Schwarze";
+            case BROWN -> "Braune";
+            case RED -> "Rote";
             case ORANGE -> "Orange";
-            case MAGENTA -> "Magenta";
-            case LIGHT_BLUE -> "Hellblaue";
             case YELLOW -> "Gelbe";
             case LIME -> "Hellgrüne";
-            case PINK -> "Rosa";
-            case GRAY -> "Graue";
-            case LIGHT_GRAY -> "Hellgraue";
-            case CYAN -> "Türkise";
-            case PURPLE -> "Violette";
-            case BLUE -> "Blaue";
-            case BROWN -> "Braune";
             case GREEN -> "Grüne";
-            case RED -> "Rote";
-            case BLACK -> "Schwarze";
+            case CYAN -> "Türkise";
+            case LIGHT_BLUE -> "Hellblaue";
+            case BLUE -> "Blaue";
+            case PURPLE -> "Violette";
+            case MAGENTA -> "Magenta";
+            case PINK -> "Rosa";
         };
     }
 }

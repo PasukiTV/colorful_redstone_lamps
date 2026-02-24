@@ -17,11 +17,11 @@ public final class ModCreativeTabs {
 
     public static final RegistrySupplier<CreativeModeTab> NORMAL_LAMPS =
             TABS.register("normal_lamps", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP,1)
-                    // Später ersetzen wir das Icon durch eine deiner Lampen
+
                     .icon(() -> new ItemStack(ModItems.LAMP_ITEMS.get(DyeColor.RED).get()))
-                    // Titel ist erstmal hardcoded, später machen wir lang keys
-                    .title(Component.literal("Colorful Redstone Lamps"))
-                    // Erstmal nur Vanilla anzeigen, bis deine Items drin sind
+
+                    .title(Component.translatable("itemGroup.colorful_redstone_lamps.normal_lamps"))
+
                     .displayItems((params,output) -> {
                         for (DyeColor color : DyeColor.values()) {
                             var sup = ModBlocks.LAMPS.get(color);
@@ -33,11 +33,11 @@ public final class ModCreativeTabs {
 
     public static final RegistrySupplier<CreativeModeTab> INVERTED_LAMPS =
             TABS.register("inverted_lamps", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP,2)
-                    // Später ersetzen wir das Icon durch eine deiner Lampen
+
                     .icon(() -> new ItemStack(ModItems.INVERTED_LAMP_ITEMS.get(DyeColor.RED).get()))
-                    // Titel ist erstmal hardcoded, später machen wir lang keys
-                    .title(Component.literal("Inverted Colorful Redstone Lamps"))
-                    // Erstmal nur Vanilla anzeigen, bis deine Items drin sind
+
+                    .title(Component.translatable("itemGroup.colorful_redstone_lamps.inverted_lamps"))
+
                     .displayItems((params,output) -> {
                         for (DyeColor color : DyeColor.values()) {
                             var sup = ModBlocks.INVERTED_LAMPS.get(color);

@@ -11,6 +11,5 @@ public final class ColorfulRedstoneLamps {
         ModBlocks.register();
         ModItems.register();
         ModCreativeTabs.register();
-        System.out.println("Colorful Redstone Lamps Common Init");
     }
 }

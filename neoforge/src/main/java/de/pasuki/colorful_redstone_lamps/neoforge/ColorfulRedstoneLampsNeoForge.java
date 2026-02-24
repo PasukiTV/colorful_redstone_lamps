@@ -7,7 +7,6 @@ import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 @Mod(ColorfulRedstoneLamps.MOD_ID)
 public final class ColorfulRedstoneLampsNeoForge {
     public ColorfulRedstoneLampsNeoForge() {
-        // Run our common setup.
         ColorfulRedstoneLamps.init();
     }
 }

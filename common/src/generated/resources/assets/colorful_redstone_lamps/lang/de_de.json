@@ -67,7 +67,7 @@
   "item.colorful_redstone_lamps.white_redstone_lamp_inverted": "Weiße invertierte Redstone-Lampe",
   "item.colorful_redstone_lamps.yellow_redstone_lamp": "Gelbe Redstone-Lampe",
   "item.colorful_redstone_lamps.yellow_redstone_lamp_inverted": "Gelbe invertierte Redstone-Lampe",
-  "itemGroup.colorful_redstone_lamps.inverted_lamps": "Invertierte bunte Redstone-Lampen",
+  "itemGroup.colorful_redstone_lamps.inverted_lamps": "Bunte Redstone-Lampen Invertiert",
   "itemGroup.colorful_redstone_lamps.normal_lamps": "Bunte Redstone-Lampen",
   "tooltip.colorful_redstone_lamps.lamp.inverted": "Schaltet sich bei Redstone-Signal aus.",
   "tooltip.colorful_redstone_lamps.lamp.normal": "Schaltet sich bei Redstone-Signal ein."
