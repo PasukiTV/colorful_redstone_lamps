@@ -56,4 +56,5 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+    archiveClassifier = "mc${rootProject.minecraft_version}-neoforge"
 }
