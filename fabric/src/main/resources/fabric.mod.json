@@ -20,6 +20,9 @@
     ],
     "client": [
       "de.pasuki.colorful_redstone_lamps.fabric.client.ColorfulRedstoneLampsFabricClient"
+    ],
+    "fabric-datagen": [
+      "de.pasuki.colorful_redstone_lamps.fabric.datagen.ColorfulRedstoneLampsDataGenerator"
     ]
   },
   "mixins": [
