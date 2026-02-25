@@ -17,7 +17,7 @@ public final class WelcomeMessageHandler {
     }
 
     public static void onPlayerJoined(ServerPlayer player) {
-        ServerLevel overworld = player.getServer().overworld();
+        ServerLevel overworld = player.level().getServer().overworld();
         WelcomeMessageData data = WelcomeMessageData.get(overworld);
         var playerId = player.getUUID();
 

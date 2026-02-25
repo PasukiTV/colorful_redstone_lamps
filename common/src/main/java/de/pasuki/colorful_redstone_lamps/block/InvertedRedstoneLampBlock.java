@@ -31,7 +31,7 @@ public class InvertedRedstoneLampBlock extends RedstoneLampBlock {
 
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
