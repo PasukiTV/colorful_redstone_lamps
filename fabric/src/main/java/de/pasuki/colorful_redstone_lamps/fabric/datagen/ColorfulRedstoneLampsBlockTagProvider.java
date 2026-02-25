@@ -1,5 +1,6 @@
 package de.pasuki.colorful_redstone_lamps.fabric.datagen;
 
+
 import de.pasuki.colorful_redstone_lamps.ColorfulRedstoneLamps;
 import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,6 +13,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
+
+
 
 public final class ColorfulRedstoneLampsBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     public static final TagKey<Block> ANY_LAMP =
@@ -27,11 +30,17 @@ public final class ColorfulRedstoneLampsBlockTagProvider extends FabricTagProvid
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        var lampsTag = valueLookupBuilder(LAMPS);
+        var invertedTag = valueLookupBuilder(INVERTED_LAMPS);
+        var anyLampTag = valueLookupBuilder(ANY_LAMP);
+
         for (DyeColor color : DyeColor.values()) {
-            tag(LAMPS).add(ModBlocks.LAMPS.get(color).get().builtInRegistryHolder().key());
-            tag(INVERTED_LAMPS).add(ModBlocks.INVERTED_LAMPS.get(color).get().builtInRegistryHolder().key());
+            lampsTag.add(ModBlocks.LAMPS.get(color).get());
+            invertedTag.add(ModBlocks.INVERTED_LAMPS.get(color).get());
         }
 
-        tag(ANY_LAMP).addTag(LAMPS).addTag(INVERTED_LAMPS);
+        anyLampTag.addTag(LAMPS);
+        anyLampTag.addTag(INVERTED_LAMPS);
     }
+
 }

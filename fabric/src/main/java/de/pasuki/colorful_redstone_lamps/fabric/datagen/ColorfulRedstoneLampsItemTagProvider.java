@@ -27,11 +27,16 @@ public final class ColorfulRedstoneLampsItemTagProvider extends FabricTagProvide
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        var lampsTag = valueLookupBuilder(LAMPS);
+        var invertedTag = valueLookupBuilder(INVERTED_LAMPS);
+        var anyLampTag = valueLookupBuilder(ANY_LAMP);
+
         for (DyeColor color : DyeColor.values()) {
-            tag(LAMPS).add(ModBlocks.LAMPS.get(color).get().asItem().builtInRegistryHolder().key());
-            tag(INVERTED_LAMPS).add(ModBlocks.INVERTED_LAMPS.get(color).get().asItem().builtInRegistryHolder().key());
+            lampsTag.add(ModBlocks.LAMPS.get(color).get().asItem());
+            invertedTag.add(ModBlocks.INVERTED_LAMPS.get(color).get().asItem());
         }
 
-        tag(ANY_LAMP).addTag(LAMPS).addTag(INVERTED_LAMPS);
+        anyLampTag.addTag(LAMPS);
+        anyLampTag.addTag(INVERTED_LAMPS);
     }
 }
