@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
+import org.jetbrains.annotations.Nullable;
 
 public class InvertedRedstoneLampBlock extends RedstoneLampBlock {
     public static final BooleanProperty LIT = RedstoneLampBlock.LIT;
@@ -28,8 +30,7 @@ public class InvertedRedstoneLampBlock extends RedstoneLampBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos,
-                                Block block, BlockPos fromPos, boolean isMoving) {
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
         if (level.isClientSide) {
             return;
         }

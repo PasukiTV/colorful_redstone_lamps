@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "colorful_redstone_lamps:brown_redstone_lamp"
-    }
+    "colorful_redstone_lamps:brown_redstone_lamp"
   ],
   "result": {
     "count": 1,

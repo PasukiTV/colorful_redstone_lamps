@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "minecraft:redstone_lamp"
-    },
-    {
-      "item": "minecraft:red_dye"
-    }
+    "minecraft:redstone_lamp",
+    "minecraft:red_dye"
   ],
   "result": {
     "count": 1,

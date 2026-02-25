@@ -5,52 +5,72 @@ import de.pasuki.colorful_redstone_lamps.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvider {
-    public ColorfulRedstoneLampsRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+
+    public ColorfulRedstoneLampsRecipeProvider(
+            FabricDataOutput output,
+            CompletableFuture<HolderLookup.Provider> registriesFuture
+    ) {
         super(output, registriesFuture);
     }
 
     @Override
-    public void buildRecipes(RecipeOutput out) {
-        for (DyeColor color : DyeColor.values()) {
-            String base = color.getName() + "_redstone_lamp";
+    protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+        return new RecipeProvider(provider, recipeOutput) {
 
-            ItemLike normalLamp = ModBlocks.LAMPS.get(color).get();
-            ItemLike invertedLamp = ModBlocks.INVERTED_LAMPS.get(color).get();
-            Item dye = dyeFor(color);
+            @Override
+            public void buildRecipes() {
+                for (DyeColor color : DyeColor.values()) {
+                    String base = color.getName() + "_redstone_lamp";
 
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
-                    .requires(Items.REDSTONE_LAMP)
-                    .requires(dye)
-                    .unlockedBy("has_redstone_lamp", has(Items.REDSTONE_LAMP))
-                    .unlockedBy("has_dye_" + color.getName(), has(dye))
-                    .save(out, id("craft/" + base));
+                    ItemLike normalLamp = ModBlocks.LAMPS.get(color).get();
+                    ItemLike invertedLamp = ModBlocks.INVERTED_LAMPS.get(color).get();
+                    Item dye = dyeFor(color);
 
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, invertedLamp, 1)
-                    .requires(normalLamp)
-                    .unlockedBy("has_" + base, has(normalLamp))
-                    .save(out, id("invert/" + base + "_to_inverted"));
+                    // Vanilla lamp + dye -> colored lamp
+                    shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
+                            .requires(Items.REDSTONE_LAMP)
+                            .requires(dye)
+                            .unlockedBy("has_redstone_lamp", has(Items.REDSTONE_LAMP))
+                            .unlockedBy("has_dye_" + color.getName(), has(dye))
+                            .save(recipeOutput, id("craft/" + base));
 
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
-                    .requires(invertedLamp)
-                    .unlockedBy("has_" + base + "_inverted", has(invertedLamp))
-                    .save(out, id("invert/" + base + "_to_normal"));
-        }
-    }
+                    // Colored lamp -> inverted lamp
+                    shapeless(RecipeCategory.REDSTONE, invertedLamp, 1)
+                            .requires(normalLamp)
+                            .unlockedBy("has_" + base, has(normalLamp))
+                            .save(recipeOutput, id("invert/" + base + "_to_inverted"));
 
-    private static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, path);
+                    // Inverted lamp -> normal lamp
+                    shapeless(RecipeCategory.REDSTONE, normalLamp, 1)
+                            .requires(invertedLamp)
+                            .unlockedBy("has_" + base + "_inverted", has(invertedLamp))
+                            .save(recipeOutput, id("invert/" + base + "_to_normal"));
+                }
+            }
+
+            private static ResourceKey<Recipe<?>> id(String path) {
+                return ResourceKey.create(
+                        Registries.RECIPE,
+                        ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, path)
+                );
+            }
+        };
     }
 
     private static Item dyeFor(DyeColor color) {
@@ -72,5 +92,10 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
             case RED -> Items.RED_DYE;
             case BLACK -> Items.BLACK_DYE;
         };
+    }
+
+    @Override
+    public String getName() {
+        return "Colorful Redstone Lamps Recipes";
     }
 }

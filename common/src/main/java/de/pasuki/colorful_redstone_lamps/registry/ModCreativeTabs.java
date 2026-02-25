@@ -23,7 +23,7 @@ public final class ModCreativeTabs {
     public static final RegistrySupplier<CreativeModeTab> NORMAL_LAMPS =
             TABS.register("0_normal_lamps", () -> createLampTab(
                     "itemGroup.colorful_redstone_lamps.normal_lamps",
-                    () -> new ItemStack(ModItems.LAMP_ITEMS.get(DyeColor.RED).get()),
+                    () -> new ItemStack(ModBlocks.LAMPS.get(DyeColor.RED).get()),
                     ModBlocks.LAMPS,
                     0
             ));
@@ -31,7 +31,7 @@ public final class ModCreativeTabs {
     public static final RegistrySupplier<CreativeModeTab> INVERTED_LAMPS =
             TABS.register("1_inverted_lamps", () -> createLampTab(
                     "itemGroup.colorful_redstone_lamps.inverted_lamps",
-                    () -> new ItemStack(ModItems.INVERTED_LAMP_ITEMS.get(DyeColor.RED).get()),
+                    () -> new ItemStack(ModBlocks.INVERTED_LAMPS.get(DyeColor.RED).get()),
                     ModBlocks.INVERTED_LAMPS,
                     1
             ));
