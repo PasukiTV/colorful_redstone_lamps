@@ -26,7 +26,7 @@ public final class ColorfulRedstoneLampsModelProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
         PackOutput.PathProvider blockStateProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
         PackOutput.PathProvider blockModelProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/block");
-        PackOutput.PathProvider itemModelProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item");
+        PackOutput.PathProvider itemDefProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
 
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
@@ -42,8 +42,11 @@ public final class ColorfulRedstoneLampsModelProvider implements DataProvider {
             futures.add(saveJson(cachedOutput, blockStateProvider.json(id(base)), lampBlockStateJson(base + "_off", base + "_on")));
             futures.add(saveJson(cachedOutput, blockStateProvider.json(id(base + "_inverted")), lampBlockStateJson(base + "_off", base + "_on")));
 
-            futures.add(saveJson(cachedOutput, itemModelProvider.json(id(base)), itemParentModel("block/" + base + "_off")));
-            futures.add(saveJson(cachedOutput, itemModelProvider.json(id(base + "_inverted")), itemParentModel("block/" + base + "_on")));
+
+            futures.add(saveJson(cachedOutput, itemDefProvider.json(id(base)), itemModelRef(MOD_ID + ":block/" + base + "_off")));
+
+
+            futures.add(saveJson(cachedOutput, itemDefProvider.json(id(base + "_inverted")), itemModelRef(MOD_ID + ":block/" + base + "_on")));
         }
 
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
@@ -85,10 +88,13 @@ public final class ColorfulRedstoneLampsModelProvider implements DataProvider {
         return root;
     }
 
-    private static JsonObject itemParentModel(String parentPath) {
-        JsonObject json = new JsonObject();
-        json.addProperty("parent", MOD_ID + ":" + parentPath);
-        return json;
+    private static JsonObject itemModelRef(String modelId) {
+        JsonObject root = new JsonObject();
+        JsonObject model = new JsonObject();
+        model.addProperty("type", "minecraft:model");
+        model.addProperty("model", modelId);
+        root.add("model", model);
+        return root;
     }
 
     private static ResourceLocation id(String path) {
