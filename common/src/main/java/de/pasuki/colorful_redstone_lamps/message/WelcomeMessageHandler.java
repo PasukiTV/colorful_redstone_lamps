@@ -6,10 +6,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.net.URI;
+
 public final class WelcomeMessageHandler {
     private static final String CURSEFORGE_URL = "https://www.curseforge.com/minecraft/mc-mods/colorful-redstone-lamps/comments";
     private static final String MODRINTH_URL = "https://modrinth.com/mod/colorful-redstone-lamps";
-    private static final String DISCORD_URL = "https://discord.gg/";
+    private static final String DISCORD_URL = "https://discord.gg/9y97PyeD6s";
 
     private WelcomeMessageHandler() {
     }
@@ -45,7 +47,7 @@ public final class WelcomeMessageHandler {
                 .withStyle(style -> style
                         .withColor(ChatFormatting.AQUA)
                         .withUnderlined(true)
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
+                        .withClickEvent(new ClickEvent.OpenUrl(URI.create(url)))
                 );
     }
 }

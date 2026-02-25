@@ -1,54 +1,52 @@
 package de.pasuki.colorful_redstone_lamps.message;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.saveddata.SavedDataType;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class WelcomeMessageData extends SavedData {
+public final class WelcomeMessageData extends SavedData {
     private static final String DATA_NAME = "colorful_redstone_lamps_welcome";
-    private static final String KEY_SHOWN_PLAYERS = "shown_players";
-    private static final String KEY_PLAYER_ID = "player_id";
 
+    // Feld MUSS vor dem CODEC stehen, sonst "cannot resolve symbol shownPlayers"
     private final Set<UUID> shownPlayers = new HashSet<>();
 
-    public static WelcomeMessageData load(CompoundTag tag, HolderLookup.Provider provider) {
+    // UUID Codec (stabil über String)
+    private static final Codec<UUID> UUID_CODEC =
+            Codec.STRING.xmap(UUID::fromString, UUID::toString);
+
+    // Wir speichern die UUIDs als Liste
+    private static final Codec<WelcomeMessageData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+            UUID_CODEC.listOf()
+                    .fieldOf("shown_players")
+                    .forGetter(d -> List.copyOf(d.shownPlayers))
+    ).apply(inst, WelcomeMessageData::fromList));
+
+    public static final SavedDataType<WelcomeMessageData> TYPE = new SavedDataType<>(
+            DATA_NAME,
+            WelcomeMessageData::new,
+            CODEC,
+            DataFixTypes.LEVEL
+    );
+
+    public WelcomeMessageData() {}
+
+    private static WelcomeMessageData fromList(List<UUID> list) {
         WelcomeMessageData data = new WelcomeMessageData();
-        ListTag list = tag.getList(KEY_SHOWN_PLAYERS, Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++) {
-            CompoundTag playerEntry = list.getCompound(i);
-            if (playerEntry.hasUUID(KEY_PLAYER_ID)) {
-                data.shownPlayers.add(playerEntry.getUUID(KEY_PLAYER_ID));
-            }
-        }
+        data.shownPlayers.addAll(list);
         return data;
     }
 
-    @Override
-    public @NotNull CompoundTag save(CompoundTag tag, HolderLookup.@NotNull Provider provider) {
-        ListTag list = new ListTag();
-        for (UUID uuid : shownPlayers) {
-            CompoundTag playerEntry = new CompoundTag();
-            playerEntry.putUUID(KEY_PLAYER_ID, uuid);
-            list.add(playerEntry);
-        }
-        tag.put(KEY_SHOWN_PLAYERS, list);
-        return tag;
-    }
-
-    public static WelcomeMessageData get(ServerLevel overworld) {
-        return overworld.getDataStorage().computeIfAbsent(
-                new SavedData.Factory<>(WelcomeMessageData::new, WelcomeMessageData::load, DataFixTypes.LEVEL),
-                DATA_NAME
-        );
+    public static WelcomeMessageData get(ServerLevel level) {
+        // 1.21.5: direkt über TYPE
+        return level.getDataStorage().computeIfAbsent(TYPE);
     }
 
     public boolean wasShown(UUID playerId) {
