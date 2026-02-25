@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "[10,)"
 #issueTrackerURL = ""
 license = "All Rights Reserved"
 
@@ -18,21 +18,21 @@ It also adds inverted lamps, which behave opposite to normal lamps and turn off 
 [[dependencies.colorful_redstone_lamps]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.9,)"
+versionRange = "[21.10,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.colorful_redstone_lamps]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.9,)"
+versionRange = "[1.21.10,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.colorful_redstone_lamps]]
 modId = "architectury"
 type = "required"
-versionRange = "[18.0.5,)"
+versionRange = "[18.0.8,)"
 ordering = "AFTER"
 side = "BOTH"
 
