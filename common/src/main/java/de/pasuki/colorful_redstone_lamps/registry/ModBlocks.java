@@ -5,8 +5,8 @@ import de.pasuki.colorful_redstone_lamps.block.InvertedRedstoneLampBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -37,7 +37,7 @@ public final class ModBlocks {
                     new RedstoneLampBlock(BlockBehaviour.Properties.of()
                             .setId(ResourceKey.create(
                                     Registries.BLOCK,
-                                    ResourceLocation.fromNamespaceAndPath(
+                                    Identifier.fromNamespaceAndPath(
                                             ColorfulRedstoneLamps.MOD_ID,
                                             name
                                     )
@@ -61,7 +61,7 @@ public final class ModBlocks {
                     new InvertedRedstoneLampBlock(BlockBehaviour.Properties.of()
                             .setId(ResourceKey.create(
                                     Registries.BLOCK,
-                                    ResourceLocation.fromNamespaceAndPath(
+                                    Identifier.fromNamespaceAndPath(
                                             ColorfulRedstoneLamps.MOD_ID,
                                             invertedName
                                     )
@@ -87,7 +87,7 @@ public final class ModBlocks {
                         new BlockItem.Properties().setId(
                                 ResourceKey.create(
                                         Registries.ITEM,
-                                        ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, name)
+                                        Identifier.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, name)
                                 )
                         )
                 )

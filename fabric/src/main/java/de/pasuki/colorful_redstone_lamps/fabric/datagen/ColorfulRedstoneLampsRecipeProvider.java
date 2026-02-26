@@ -9,8 +9,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -67,7 +67,7 @@ public final class ColorfulRedstoneLampsRecipeProvider extends FabricRecipeProvi
             private static ResourceKey<Recipe<?>> id(String path) {
                 return ResourceKey.create(
                         Registries.RECIPE,
-                        ResourceLocation.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, path)
+                        Identifier.fromNamespaceAndPath(ColorfulRedstoneLamps.MOD_ID, path)
                 );
             }
         };
