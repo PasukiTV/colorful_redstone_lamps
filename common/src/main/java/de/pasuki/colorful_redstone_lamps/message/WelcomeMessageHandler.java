@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 public final class WelcomeMessageHandler {
     private static final String CURSEFORGE_URL = "https://www.curseforge.com/minecraft/mc-mods/colorful-redstone-lamps/comments";
     private static final String MODRINTH_URL = "https://modrinth.com/mod/colorful-redstone-lamps";
-    private static final String DISCORD_URL = "https://discord.gg/";
+    private static final String DISCORD_URL = "https://discord.gg/9y97PyeD6s";
 
     private WelcomeMessageHandler() {
     }
