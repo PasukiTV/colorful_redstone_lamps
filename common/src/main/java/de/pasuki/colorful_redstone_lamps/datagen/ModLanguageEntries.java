@@ -28,8 +28,7 @@ public final class ModLanguageEntries {
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Turns off with a redstone signal.");
         entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps loaded.");
         entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
-        entries.put("colorful_redstone_lamps.welcome.feedback.curseforge", "CurseForge");
-        entries.put("colorful_redstone_lamps.welcome.feedback.modrinth", "Modrinth");
+        entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
         entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
 
 
@@ -55,8 +54,7 @@ public final class ModLanguageEntries {
         entries.put("tooltip.colorful_redstone_lamps.lamp.inverted", "Schaltet sich bei Redstone-Signal aus.");
         entries.put("colorful_redstone_lamps.welcome.title", "Colorful Redstone Lamps geladen.");
         entries.put("colorful_redstone_lamps.welcome.feedback_intro", "Feedback:");
-        entries.put("colorful_redstone_lamps.welcome.feedback.curseforge", "CurseForge");
-        entries.put("colorful_redstone_lamps.welcome.feedback.modrinth", "Modrinth");
+        entries.put("colorful_redstone_lamps.welcome.feedback.github", "Github");
         entries.put("colorful_redstone_lamps.welcome.feedback.discord", "Discord");
 
         return entries;
